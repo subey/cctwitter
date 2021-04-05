@@ -6,6 +6,7 @@ import net.subey.cctwitter.entity.User;
 import net.subey.cctwitter.exception.AlreadyFollowException;
 import net.subey.cctwitter.exception.FollowYourselfException;
 import net.subey.cctwitter.repository.MessageRepository;
+import net.subey.cctwitter.view.TimelineView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +35,10 @@ public class TwitterService {
     public Page<Message> getMessage(String nick, Pageable pageable){
         log.info("GetMessage: nick={}", nick);
         return messageRepository.findAllByUserOrderByIdDesc(
+                userService.findByNick(nick), pageable);
+    }
+    public Page<TimelineView> getTimelineAsView(String nick, Pageable pageable){
+        return messageRepository.findAllViewByUserFollowing(
                 userService.findByNick(nick), pageable);
     }
     public Page<Message> getTimeline(String nick, Pageable pageable){

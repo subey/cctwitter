@@ -11,6 +11,7 @@ import net.subey.cctwitter.pagination.PageResp;
 import net.subey.cctwitter.entity.Message;
 import net.subey.cctwitter.entity.User;
 import net.subey.cctwitter.service.TwitterService;
+import net.subey.cctwitter.view.TimelineView;
 import net.subey.cctwitter.view.View;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +59,10 @@ public class TwitterController {
                     @ApiResponse(responseCode = "404", description = "User %s not found.")
             })
     @GetMapping("/user/{nick}/timeline")
-    public PageResp<Message> timeline(
+    public PageResp<TimelineView> timeline(
             @PathVariable @Parameter(example = "Bob") String nick,
             @Parameter(hidden = true) @ParameterObject Pageable pageable) {
-        return new PageResp<Message>(twitterService.getTimeline(nick, pageable));
+        return new PageResp<TimelineView>(twitterService.getTimelineAsView(nick, pageable));
     }
 
     @Operation(summary = "Follow user",

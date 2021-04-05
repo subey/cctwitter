@@ -3,6 +3,11 @@
 Jdk11, endpoint: http://localhost:8080
 
 ## Usage
+```sh
+git clone https://github.com/subey/cctwitter
+cd cctwitter/
+```
+
 #### Gradle
 `./gradlew bootRun`
 
